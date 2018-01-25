@@ -1,26 +1,84 @@
-<div class="ui-widget-header" style="padding:4px 10px;border-bottom: 0 none">
-  <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
-  <input #gb type="text" pInputText size="50" placeholder="Global Filter">
+<div *ngIf="cols.length !=0 && columnOptions.length !=0 ">
+
+  <div class="ui-widget-header" style="padding:4px 10px;border-bottom: 0 none">
+    <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+    <input #gb type="text" pInputText size="50" placeholder="Global Filter">
+  </div>
+
+  <p-dataTable [value]="data" [rows]="10" [paginator]="true" [pageLinks]="3" [rowsPerPageOptions]="[5,10,20]" sortMode="multiple"
+    [globalFilter]="gb" #dt resizableColumns="true" columnResizeMode="expand">
+
+    <p-header>
+      <div style="text-align:left">
+        <p-multiSelect [options]="columnOptions" [(ngModel)]="cols"></p-multiSelect>
+      </div>
+    </p-header>
+
+    <p-column *ngFor="let col of filterCols(cols);" [field]="col.field" [header]="col.header" [sortable]="true" [filter]="true"
+      filterPlaceholder="Search">
+    </p-column>
+
+    <p-column styleClass="col-button" [field]="btnEdit" [header]="btnEdit" [sortable]="false" [filter]="false">
+      <ng-template pTemplate="header">
+        <span>Profile</span>
+      </ng-template>
+      <ng-template let-user="rowData" pTemplate="body">
+        <a type="button" pButton href="admin/users/{{user.id}}" icon="fa-search">Profile</a>
+      </ng-template>
+    </p-column>
+
+    <p-column styleClass="col-button" [field]="btnDelete" [header]="btnDelete" [sortable]="false" [filter]="false">
+        <ng-template pTemplate="header">
+          <span>Delete</span>
+        </ng-template>
+        <ng-template let-user="rowData" pTemplate="body">
+          <a type="button" pButton href="admin/users/{{user.id}}" icon="fa-search">Delete</a>
+        </ng-template>
+      </p-column>
+      <p-column styleClass="col-button" [field]="btnDelete" [header]="btnDelete" [sortable]="false" [filter]="false">
+          <ng-template pTemplate="header">
+            <span>Edit</span>
+          </ng-template>
+          <ng-template let-user="rowData" pTemplate="body">
+            <a type="button" pButton href="admin/users/{{user.id}}" icon="fa-search">Edit</a>
+          </ng-template>
+      </p-column>
+      <p-column styleClass="col-button" [field]="Photo" [header]="Photo" [sortable]="false" [filter]="false">
+          <ng-template pTemplate="header">
+            <span>Picture</span>
+          </ng-template>
+          <ng-template let-user="rowData" pTemplate="body">
+            <img src="{{user.profile_picture}}" alt="Profile pic">
+          </ng-template>
+      </p-column>
+
+  </p-dataTable>
+
 </div>
-
-<p-dataTable [value]="data" [rows]="10" [paginator]="true" [pageLinks]="3" [rowsPerPageOptions]="[5,10,20]" sortMode="multiple" [globalFilter]="gb" #dt resizableColumns="true" columnResizeMode="expand">
-  <p-header>
-    <div style="text-align:left">
-      <p-multiSelect [options]="columnOptions" [(ngModel)]="cols"></p-multiSelect>
-    </div>
-  </p-header>
-  <p-column *ngFor="let col of cols" [field]="col.field" [header]="col.header" [sortable]="true" [filter]="true" filterPlaceholder="Search"></p-column>
-    <!-- <ng-template pTemplate="paginatorLeft">
-      <button type="button" pButton icon="fa-refresh"></button>
-  </ng-template> -->
-  <!-- <ng-template pTemplate="paginatorRight">
-      <button type="button" pButton icon="fa-cloud-upload"></button>
-  </ng-template> -->
-</p-dataTable>
-
-
-<!-- <p-column field="billing_address" header="Billing Address" [sortable]="true" [filter]="true" filterPlaceholder="Search"></p-column>
+  <!-- <p-column field="billing_address" header="Billing Address" [sortable]="true" [filter]="true" filterPlaceholder="Search"></p-column>
 <p-column field="city" header="City" [sortable]="true" [filter]="true" filterPlaceholder="Search"></p-column>
 <p-column field="country" header="Country" [sortable]="true" [filter]="true" filterPlaceholder="Search"></p-column>
 <p-column field="ContactTitle" header="Contact Title" [sortable]="true" [filter]="true" filterPlaceholder="Search"></p-column>
 <p-column field="City" header="City" [sortable]="true" [filter]="true" filterPlaceholder="Search"></p-column> -->
+
+
+
+  <!-- <router-outlet></router-outlet> -->
+    <!-- <p-column styleClass="col-button" [field]="profile_picture" [header]="profile_picture" [sortable]="false" [filter]="false">
+    <ng-template pTemplate="profile_picture">
+        <button type="button" pButton icon="fa-refresh"></button>
+    </ng-template>
+    <ng-template let-user="rowData" pTemplate="body">
+        <img src="{{user.profile_picture}}"/>
+    </ng-template>
+  </p-column> -->
+
+
+
+
+    <!-- <ng-template pTemplate="paginatorLeft">
+      <button type="button" pButton icon="fa-refresh"></button>
+  </ng-template> -->
+    <!-- <ng-template pTemplate="paginatorRight">
+      <button type="button" pButton icon="fa-cloud-upload"></button>
+  </ng-template> -->

@@ -9,19 +9,24 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations'
 import { AppComponent } from './app.component';
 import { UsersService } from './app.service';
 import { HttpClientModule } from '@angular/common/http';
-
+import { CarsoulComponent } from './carsoul/carsoul.component';
+import {CarouselModule} from 'primeng/carousel';
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    CarsoulComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    AppRoutingModule,
     HttpClientModule,    
     DataTableModule,
     MultiSelectModule,
-    FormsModule
+    FormsModule,
+    CarouselModule
   ],
   providers: [UsersService],
   bootstrap: [AppComponent]
