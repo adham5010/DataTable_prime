@@ -1,0 +1,10 @@
+.text-wrap{
+    word-wrap: break-word;
+}
+td{
+    word-wrap: break-word;
+    overflow-wrap: break-word; 
+}
+table{
+    table-layout: fixed;
+}
